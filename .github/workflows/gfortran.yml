@@ -7,21 +7,29 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  Linux:
 
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - name: Build
+      run: gfortran -o thxgen thxgen.f90
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: Linux
+        path: thxgen
+  macOS:
 
-    - name: configure
-      run: ./configure
+    runs-on: macos-latest
 
-    - name: Install dependencies
-      run: make
-
-    - name: Run check
-      run: make check
-
-    - name: Run distcheck
-      run: make distcheck
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: gfortran -o thxgen thxgen.f90
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: macOS
+        path: thxgen
