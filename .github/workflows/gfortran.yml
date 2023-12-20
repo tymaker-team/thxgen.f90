@@ -27,7 +27,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build
-      run: gfortran -o thxgen thxgen.f90
+      run: |
+        brew update
+        brew install gcc
+        gfortran -o thxgen thxgen.f90
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
